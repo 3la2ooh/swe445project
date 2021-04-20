@@ -1,0 +1,27 @@
+<div class="clean-product-item">
+  <div class="image">
+    <a (click)="onClickItem()" style="cursor: pointer">
+      <img class="img-fluid d-block mx-auto" [src]="imageUrl">
+    </a>
+  </div>
+  <div class="product-name">
+    <a (click)="onClickItem()" style="cursor: pointer">{{ title }}</a>
+  </div>
+
+  <div class="about">
+    <div class="rating">
+      <app-rating [rating]="rating"></app-rating>
+    </div>
+
+    <div class="price">
+      <h3>${{ price }}</h3>
+    </div>
+
+    <button class="btn btn-primary" type="button" (click)="onAddToCart()" *ngIf="!isProductInShoppingCart">
+      <i class="icon-basket"></i>
+    </button>
+    <button class="btn btn-success" type="button" (click)="onAddToCart()" *ngIf="isProductInShoppingCart">
+      <i class="icon-check"></i>{{ quantity > 1 ? quantity : '' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+<section class="clean-block payment-form dark">
+  <div class="container">
+    <!--  Heading  -->
+    <div class="block-heading">
+      <h2 class="text-info">Payment</h2>
+    </div>
+
+    <form [formGroup]="paymentDataForm" (ngSubmit)="onProceed()">
+      <!--   Items   -->
+      <div class="products">
+        <h3 class="title">Checkout</h3>
+        <div class="item" *ngFor="let product of shoppingCartItems; let i = index">
+          <span class="price">${{ product.price }}</span>
+          <p class="item-name">{{ product.name }}</p>
+          <p class="item-description">{{ catalogItems[i].description }}</p>
+        </div>
+        <div class="item">
+          <span class="price">${{ shippingCost }}</span>
+          <p class="item-name">Shipping</p>
+        </div>
+        <div class="total">
+          <span>Total</span>
+          <span class="price">${{ subtotal + shippingCost }}</span>
+        </div>
+      </div>
+
+      <!--   Credit Card Details   -->
+      <div class="card-details">
+        <h3 class="title">Credit Card Details</h3>
+
+        <div class="form-row">
+          <!--     Name       -->
+          <div class="col-sm-7">
+            <div class="form-group">
+              <label for="card-holder">Card Holder</label>
+              <input
+                [ngClass]="paymentDataForm.get('cardHolder').valid ?
+                'form-control border-success' :
+                paymentDataForm.get('cardHolder').touched ?
+                'form-control border-danger' :
+                'form-control'"
+                id="card-holder"
+                type="text"
+                placeholder="Card Holder"
+                formControlName="cardHolder"
+              >
+              <span
+                class="alert-danger"
+                *ngIf="paymentDataForm.get('cardHolder').invalid && paymentDataForm.get('cardHolder').touched"
+              >
+                Please enter the card holder's name!
+              </span>
+            </div>
+          </div>
+
+          <!--    Expiration Date      -->
+          <div class="col-sm-5">
+            <div class="form-group">
+              <label>Expiration date</label>
+              <div class="input-group expiration-date" formGroupName="expirationDate">
+                <input
+                  [ngClass]="paymentDataForm.get('expirationDate').get('mm').valid ?
+                'form-control border-success' :
+                paymentDataForm.get('expirationDate').get('mm').touched ?
+                'form-control border-danger' :
+                'form-control'"
+                  type="text" placeholder="MM"
+                  formControlName="mm"
+                  appNumbersOnly
+                  [appMaxCharacter]="2">
+                <input
+                  [ngClass]="paymentDataForm.get('expirationDate').get('yy').valid ?
+                'form-control border-success' :
+                paymentDataForm.get('expirationDate').get('yy').touched ?
+                'form-control border-danger' :
+                'form-control'"
+                  type="text"
+                  placeholder="YY"
+                  formControlName="yy"
+                  appNumbersOnly
+                  [appMaxCharacter]="2">
+              </div>
+            </div>
+          </div>
+
+          <!--    Card Number      -->
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input
+                [ngClass]="paymentDataForm.get('cardNumber').valid ?
+                'form-control border-success' :
+                paymentDataForm.get('cardNumber').touched ?
+                'form-control border-danger' :
+                'form-control'"
+                type="text" id="card-number"
+                placeholder="Card Number"
+                formControlName="cardNumber"
+                appNumbersOnly
+                [appMaxCharacter]="16"
+              >
+              <span
+                class="alert-danger"
+                *ngIf="paymentDataForm.get('cardNumber').invalid && paymentDataForm.get('cardNumber').touched"
+              >
+                Please enter a valid card number of length 16
+              </span>
+            </div>
+          </div>
+
+          <!--    CVC      -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="cvc">CVC</label>
+              <input
+                [ngClass]="paymentDataForm.get('cvc').valid ?
+                'form-control border-success' :
+                paymentDataForm.get('cvc').touched ?
+                'form-control border-danger' :
+                'form-control'"
+                type="text"
+                id="cvc"
+                placeholder="CVC"
+                formControlName="cvc"
+                appNumbersOnly
+                [appMaxCharacter]="3"
+              >
+              <span
+                class="alert-danger"
+                *ngIf="paymentDataForm.get('cvc').invalid && paymentDataForm.get('cvc').touched"
+              >
+                Please enter the card's 3-digit cvc
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="otpSent">
+            <label for="password">Enter the code that was sent to you</label>
+            <input
+                [ngClass]="
+                  paymentDataForm.get('code').valid
+                    ? 'form-control border-success'
+                    : paymentDataForm.get('code').touched
+                    ? 'form-control border-danger'
+                    : 'form-control'
+                "
+                type="text"
+                id="code"
+                formControlName="code"
+                appNumbersOnly
+                [appMaxCharacter]="6"
+              />
+          </div>
+
+          <!--    Submit Button      -->
+          <div class="col-sm-12">
+            <div class="form-group">
+              <button
+                class="btn btn-primary btn-block"
+                type="submit"
+                [disabled]="!paymentDataForm.valid || otpSent"
+                *ngIf="!isPaid">Proceed</button>
+              <button class="btn btn-success btn-block" type="button" disabled *ngIf="isPaid">
+                <i class="icon-check"></i>Thank You! Payment Successful
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div id="recaptcha-container"></div>
+  </div>
+</section>

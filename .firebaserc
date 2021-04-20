@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "swe445project": {
+      "hosting": {
+        "Store": [
+          "swe445project"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "swe445project"
+  }
+}

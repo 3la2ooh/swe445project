@@ -1,0 +1,85 @@
+<section class="clean-block clean-product dark">
+  <div class="container">
+    <!--  Heading  -->
+    <div class="block-heading">
+    </div>
+
+
+    <div class="block-content">
+      <div class="product-info">
+        <div class="row">
+          <!--    Gallery      -->
+          <div class="col-md-6">
+            <div class="gallery">
+              <div class="sp-wrap sp-non-touch" style="display: inline-block;">
+                <div class="sp-large">
+                  <a [href]="product.imageUrl[0]" class="sp-current-big">
+                    <img class="img-fluid d-block mx-auto" [src]="product.imageUrl[0]">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="info">
+              <h3>{{ product.name }}</h3>
+              <div class="rating">
+                <app-rating [rating]="product.rating"></app-rating>
+              </div>
+              <div class="price">
+                <h3>${{ product.price.toFixed(2) }}</h3>
+              </div>
+              <button class="btn btn-primary" type="button" (click)="onAddToCart()" *ngIf="!isProductInShoppingCart">
+                <i class="icon-basket"></i>
+              </button>
+              <button class="btn btn-success" type="button" (click)="onAddToCart()" *ngIf="isProductInShoppingCart">
+                <i class="icon-check"></i>{{ quantity > 1 ? 'Added ' + quantity + ' ' : 'Added' }}
+              </button>
+              <div class="summary">
+                <p>{{ product.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info">
+        <div>
+          <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" role="tab" data-toggle="tab" id="specifications-tabs" href="#specifications">Specifications</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane active fade show specifications" role="tabpanel" id="specifications">
+              <div class="table-responsive table-bordered">
+                <table class="table table-bordered">
+                  <tbody>
+                  <tr>
+                    <td class="stat">Display</td>
+                    <td>{{ product.specifications.display }}"</td>
+                  </tr>
+                  <tr>
+                    <td class="stat">Camera</td>
+                    <td>{{ product.specifications.camera }}MP</td>
+                  </tr>
+                  <tr>
+                    <td class="stat">RAM</td>
+                    <td>{{ product.specifications.ram }}GB</td>
+                  </tr>
+                  <tr>
+                    <td class="stat">OS</td>
+                    <td>{{ getObjectKey(product.specifications.os) }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

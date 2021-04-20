@@ -1,0 +1,22 @@
+<section class="clean-block clean-form dark">
+    <div class="container">
+      <div class="block-heading">
+        <h2 class="text-info">Verify Your Email and Refresh</h2>
+      </div>
+      
+      <form>
+          <div style="height: 6rem;"></div>
+          <button
+          class="btn btn-primary btn-block"
+          type="button"
+          (click)="onResendEmail()"
+          [disabled]="emailSent"
+          >
+          {{ emailSent ? "Email Resent, " + timeLeft + " seconds left" : "Resend Email" }}
+        </button>
+        <div style="height: 6rem;"></div>
+      </form>
+      <div style="height: 6rem;"></div>
+    </div>
+  </section>
+  

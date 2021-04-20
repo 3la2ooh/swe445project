@@ -1,0 +1,16 @@
+.placeholder
+{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.placeholder::after
+{
+    position: absolute;
+    left: 5px;
+    top: 0.5rem;
+    content: attr(data-placeholder);
+    pointer-events: none;
+    opacity: 0.6;
+}

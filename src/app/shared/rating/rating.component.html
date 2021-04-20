@@ -1,0 +1,9 @@
+<ng-container *ngFor="let one of iterableRating(flooredRating)">
+  <img src="assets/img/star.svg">
+</ng-container>
+<ng-container *ngFor="let one of iterableRating(ceiledRating - flooredRating)">
+  <img src="assets/img/star-half-empty.svg">
+</ng-container>
+<ng-container *ngFor="let one of iterableRating(5 - ceiledRating)">
+  <img src="assets/img/star-empty.svg">
+</ng-container>
